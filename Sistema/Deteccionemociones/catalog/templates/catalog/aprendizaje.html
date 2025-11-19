@@ -1,0 +1,15 @@
+
+<h1>Test de estilos de aprendizaje</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Enviar</button>
+</form>
+
+{% if result %}
+
+    <h2>Estilo: <strong>{{result}}</strong></h2>
+{% endif %}
