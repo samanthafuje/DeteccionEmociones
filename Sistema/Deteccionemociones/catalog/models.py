@@ -13,7 +13,7 @@ class alumno(models.Model):
         ('auditivo', 'Auditivo'),
         ('kinestesico', 'Kinestésico'),
         ]
-    tipo_aprendizaje = models.CharField(max_length=20, choices=aprendizaje, default='visual')
+    tipo_aprendizaje = models.CharField(max_length=20, blank=True, null=True)
     def __str__(self):
         return f"{self.nombre} {self.apellido_parterno} {self.apellido_materno}"
 
@@ -30,7 +30,7 @@ def __self__(self):
 
 #Modelo Tipos de Aprendizaje
 
-class estilos_aprendizaje(models.Model):
+class EstilosAprendizaje(models.Model):
     alumno = models.ForeignKey(alumno, on_delete=models.CASCADE)
     p1 = models.CharField(max_length=1)
     p2 = models.CharField(max_length=1)
@@ -42,44 +42,48 @@ class estilos_aprendizaje(models.Model):
     p8 = models.CharField(max_length=1)
     p9 = models.CharField(max_length=1)
     p10 = models.CharField(max_length=1)
-    
-    resultado =models.CharField(max_length=50,blank=True)
-    
+
+    resultado = models.CharField(max_length=50, blank=True)
+
     def __str__(self):
-        return f"Resultado: {self.alumno.nombre} {self.resultado}"
+        return f"Resultado: {self.alumno.nombre} → {self.resultado}"
 
 
-#usuario
-class usuario(models.Model):
-    id_usuario = models.AutoField(primary_key=True)
-    nombre = models.CharField (max_length=50)
-    rool = models.CharField(max_length=20)
-def __self__(self):
-    return f"{self.nombre} {self.rool}"
+class Usuario(models.Model):
+    nombre = models.CharField(max_length=50)
+    rol = models.CharField(max_length=20)
 
-#emocion
-class emocion(models.Model):
-    id_emocion = models.AutoField(primary_key=True)
+    def __str__(self):
+        return f"{self.nombre} ({self.rol})"
+
+
+class Emocion(models.Model):
     emocion = models.CharField(max_length=45)
 
-#Reporte
-class reporte(models.Model):
-    id_reporte = models.AutoField(primary_key=True)
-    Resultado = models.CharField(max_length=45)
-    id_emocion = models.ForeignKey(emocion, on_delete=models.CASCADE)
-    id_alumno = models.ForeignKey(alumno, on_delete=models.CASCADE)
-def __self__(self):
-    return f"{self.id_alumno} {self.id_emocion}"
+    def __str__(self):
+        return self.emocion
 
-#Texto
-class texto(models.Model):
-    id_texto = models.AutoField(primary_key=True)
+
+class Reporte(models.Model):
+    resultado = models.CharField(max_length=45)
+    emocion = models.ForeignKey(Emocion, on_delete=models.CASCADE)
+    alumno = models.ForeignKey(alumno, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.alumno} → {self.emocion}"
+
+
+class Texto(models.Model):
     contenido = models.CharField(max_length=1000)
-    id_emocion = models.ForeignKey(emocion, on_delete=models.CASCADE)
+    emocion = models.ForeignKey(Emocion, on_delete=models.CASCADE)
 
-#Diccionario
-class diccionario(models.Model):
-    id_palabras = models.AutoField(primary_key=True)
-    id_emocion = models.ForeignKey(emocion, on_delete=models.CASCADE)
+    def __str__(self):
+        return f"{self.emocion}: {self.contenido[:40]}"
+
+
+class Diccionario(models.Model):
+    emocion = models.ForeignKey(Emocion, on_delete=models.CASCADE)
     palabra = models.CharField(max_length=10)
-    
+
+    def __str__(self):
+        return f"{self.palabra} ({self.emocion})"

@@ -1,0 +1,24 @@
+{% block content %}
+
+<h2>Resultado del Test</h2>
+
+<h3>{{ alumno.nombre }} {{ alumno.apellido_parterno }}</h3>
+
+<p><strong>Tipo de aprendizaje detectado:</strong></p>
+
+<h1 style="color: blue">{{ resultado }}</h1>
+
+<hr>
+
+<p><strong>Puntajes:</strong></p>
+<ul>
+    <li>Visual: {{ visual }}</li>
+    <li>Auditivo: {{ auditivo }}</li>
+    <li>Kinestésico: {{ kinestesico }}</li>
+</ul>
+
+<br>
+
+<a class="btn btn-primary" href="/">Volver al inicio</a>
+
+{% endblock %}
