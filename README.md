@@ -10,14 +10,65 @@ La idea surge a partir de la detección de problemas emocionales en los jóvenes
 
 Los jóvenes de 19 a 25 años de una universidad privada en su mayoría no cuentan con un diagnóstico oportuno en temas de trastornos emocionales, lo que provoca problemas de comportamiento, en el rendimiento escolar y en su vida diaria.
 
-# Objetivo General
 
-Los jóvenes de 19 a 25 años de una universidad privada en su mayoría no cuentan con un diagnóstico oportuno en temas de trastornos emocionales, lo que provoca problemas de comportamiento, en el rendimiento escolar y en su vida diaria.
+#Requisitos
 
-# Sistema
- Este sistema será desarrollado con el lenguaje de programación Python en en framework de Django, usando el IDE de Visual Studio Code.
+-Python 3.x
+
+-Django 4.x o superior
+
+-MariaDB 10.x o superior
+
+-pip / virtualenv
+
+-Git
+
+#Instalación
+
+Clona el repositorio:
+
+git clone https://github.com/usuario/sistema-deteccion-emociones.git
+cd sistema-deteccion-emociones
 
 
-# Base de datos
+Crea y activa un entorno virtual:
 
-Se ha decidido utilizar una base de datos de datos Relacional (SQL) usando un SGBD como MySQL.
+python3 -m venv venv
+source venv/bin/activate        # Linux / macOS
+venv\Scripts\activate           # Windows
+
+
+Instala las dependencias:
+
+pip install -r requirements.txt
+
+-Configuración
+
+
+Este proyecto incluye un archivo de respaldo generado con mysqldump llamado:
+
+database/respaldo.sql
+
+1. Crear la base de datos:
+CREATE DATABASE Proyecto_emociones
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
+2. Importar el dump:
+mysql -u tu_usuario -p Proyecto_emociones < database/respaldo.sql
+
+3. Aplicar migraciones adicionales:
+python manage.py migrate
+
+#Ejecutar el Proyecto
+
+Inicia el servidor local:
+
+python manage.py runserver
+
+
+El proyecto quedará disponible en:
+
+http://127.0.0.1:8000/registrar_alumno ó estilos_aprendizaje/1
+
+ 
