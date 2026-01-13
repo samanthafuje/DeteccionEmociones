@@ -1,10 +1,95 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
     
     <head>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
         <meta charset="UTF-8">
         <title>Registro de alumno</title>
+
+        <style>
+            * Estilos generales */
+body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9f2fb;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor del formulario */
+form {
+    background-color: #ffffff;
+    width: 400px;
+    margin: 60px auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Título */
+h2 {
+    text-align: center;
+    color: #1f4e79;
+    margin-top: 40px;
+}
+
+/* Párrafos generados por Django */
+form p {
+    margin-bottom: 15px;
+}
+
+/* Etiquetas */
+label {
+    display: block;
+    font-weight: bold;
+    color: #1f4e79;
+    margin-bottom: 5px;
+}
+
+/* Inputs */
+input, select, textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #b5cde8;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Input al enfocar */
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #2e75b6;
+}
+
+/* Botón */
+button {
+    width: 100%;
+    background-color: #2e75b6;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Hover del botón */
+button:hover {
+    background-color: #1f4e79;
+}
+input:valid {
+    border-color: #2e75b6;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+        </style>
     </head>
+
 
    <body>
         <h2>Registrar Alumno</h2>
@@ -15,3 +100,77 @@
         </form>
    </body> 
 </html>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
+    const inputs = form.querySelectorAll("input, select, textarea");
+    const button = form.querySelector("button");
+
+    // error
+    inputs.forEach(input => {
+        const error = document.createElement("small");
+        error.style.color = "red";
+        error.style.display = "none";
+        input.after(error);
+    });
+
+    function validarCampo(input) {
+        const error = input.nextElementSibling;
+
+        if (!input.value.trim()) {
+            error.textContent = "Este campo es obligatorio";
+            error.style.display = "block";
+            input.style.borderColor = "red";
+            return false;
+        }
+
+        // Validación de correo
+        if (input.type === "email") {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(input.value)) {
+                error.textContent = "Correo electrónico inválido";
+                error.style.display = "block";
+                input.style.borderColor = "red";
+                return false;
+            }
+        }
+
+        error.style.display = "none";
+        input.style.borderColor = "#2e75b6";
+        return true;
+    }
+
+    function validarFormulario() {
+        let valido = true;
+        inputs.forEach(input => {
+            if (!validarCampo(input)) {
+                valido = false;
+            }
+        });
+        button.disabled = !valido;
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener("input", () => {
+            validarCampo(input);
+            validarFormulario();
+        });
+    });
+
+    form.addEventListener("submit", e => {
+        validarFormulario();
+        if (button.disabled) {
+            e.preventDefault();
+            alert("Corrige los errores antes de guardar.");
+        } else {
+            if (!confirm("¿Deseas guardar el registro del alumno?")) {
+                e.preventDefault();
+            }
+        }
+    });
+
+    button.disabled = true;
+});
+</script>

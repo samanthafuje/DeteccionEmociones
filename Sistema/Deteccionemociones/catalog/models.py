@@ -8,6 +8,7 @@ class alumno(models.Model):
     apellido_materno = models.CharField(max_length=20, help_text="Apellido materno")
     edad = models.PositiveIntegerField()
     licenciatura = models.CharField(max_length=40)
+    correo = models.EmailField(max_length=40, blank=True, null=True)
     aprendizaje = [
         ('visual', 'Visual'),
         ('auditivo', 'Auditivo'),

@@ -77,7 +77,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Proyecto_Emociones',
-        'USER': 'django',
+        'USER': 'samy',
         'PASSWORD': '3141',
         'HOST': 'localhost',
         'PORT': '3306',
