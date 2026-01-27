@@ -1,63 +1,78 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-from .forms import AlumnoForm
-from .forms import estilos_aprendizajeForm
-from catalog.models import alumno
-from catalog.models import EstilosAprendizaje
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import alumno
+from .forms import AlumnoForm, EstilosAprendizajeForm
 
-def index(request):
-    """Vista principal del catálogo"""
-    return redirect('registrar_alumno')
 
 def registrar_alumno(request):
-    if request.method == 'POST':
-        form = AlumnoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Alumno registrado exitosamente.')
-            return redirect('registrar_alumno')
-    else:
-        form = AlumnoForm()
-
+    form = AlumnoForm(request.POST or None)
+    if form.is_valid():
+        estudiante = form.save()
+        return redirect('estilos_aprendizaje', alumno_id=estudiante.id_alumno)
     return render(request, 'catalog/registro.html', {'form': form})
 
 
-def estilos_aprendizaje(request, id_alumno):
-    estudiante = alumno.objects.get(id_alumno=id_alumno)
+def estilos_aprendizaje_view(request, alumno_id):
+    alumno_obj = get_object_or_404(alumno, pk=alumno_id)
 
     if request.method == 'POST':
-        respuestas = {f"p{i}": request.POST.get(f"p{i}") for i in range(1, 11)}
+        form = EstilosAprendizajeForm(request.POST)
+        if form.is_valid():
+            test = form.save(commit=False)
+            test.alumno = alumno_obj
 
-        test = EstilosAprendizaje.objects.create(
-            alumno=estudiante,
-            **respuestas
-        )
+            respuestas = [
+                test.p1, test.p2, test.p3, test.p4, test.p5,
+                test.p6, test.p7, test.p8, test.p9, test.p10
+            ]
 
-        visual = sum(v == "A" for v in respuestas.values())
-        auditivo = sum(v == "B" for v in respuestas.values())
-        kinestesico = sum(v == "C" for v in respuestas.values())
+            visual = respuestas.count('A')
+            auditivo = respuestas.count('B')
+            kinestesico = respuestas.count('C')
 
-        if visual > auditivo and visual > kinestesico:
-            resultado = "Visual"
-        elif auditivo > visual and auditivo > kinestesico:
-            resultado = "Auditivo"
-        else:
-            resultado = "Kinestésico"
+            if visual >= auditivo and visual >= kinestesico:
+                resultado = 'Visual'
+            elif auditivo >= kinestesico:
+                resultado = 'Auditivo'
+            else:
+                resultado = 'Kinestésico'
 
-        # Guardar resultado en el alumno
-        estudiante.tipo_aprendizaje = resultado.lower()
-        estudiante.save()
+            test.resultado = resultado
+            alumno_obj.tipo_aprendizaje = resultado.lower()
+            alumno_obj.save()
+            test.save()
 
-        # Guardar resultado también en el test
-        test.resultado = resultado
-        test.save()
+            return redirect('resultado_estilo', alumno_id=alumno_obj.id_alumno)
+    else:
+        form = EstilosAprendizajeForm()
 
-        return render(request, "resultado_aprendizaje.html", {
-            "resultado": resultado,
-            "visual": visual,
-            "auditivo": auditivo,
-            "kinestesico": kinestesico,
-            "alumno": estudiante
-        })
+    return render(request, 'catalog/aprendizaje.html', {
+        'form': form,
+        'alumno': alumno_obj
+    })
 
-    return render(request, "catalog/aprendizaje.html", {"alumno": estudiante})
+
+def resultado_estilo(request, alumno_id):
+    alumno_obj = get_object_or_404(alumno, pk=alumno_id)
+
+    # Obtenemos el primer test del alumno
+    test = alumno_obj.estilosaprendizaje.first()
+
+    if not test:
+        # Si no hay test, redirigimos al formulario
+        return redirect('estilos_aprendizaje', alumno_id=alumno_obj.id_alumno)
+
+    # Calculamos los conteos de cada estilo de manera más limpia
+    respuestas = [test.p1, test.p2, test.p3, test.p4, test.p5,
+                  test.p6, test.p7, test.p8, test.p9, test.p10]
+
+    visual = respuestas.count('A')
+    auditivo = respuestas.count('B')
+    kinestesico = respuestas.count('C')
+
+    return render(request, 'catalog/resultado_estilo.html', {
+        'resultado': test.resultado,
+        'alumno': alumno_obj,
+        'visual': visual,
+        'auditivo': auditivo,
+        'kinestesico': kinestesico
+    })

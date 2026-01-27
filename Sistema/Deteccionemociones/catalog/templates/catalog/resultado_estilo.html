@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultado de Aprendizaje</title>
+    <link rel="stylesheet" href="{% static 'catalog/css/resultado.css' %}">
+</head>
+<body>
+
+<div class="resultado-container">
+
+    <h2>Resultado de Estilo de Aprendizaje</h2>
+
+    <p class="nombre">
+        {{ alumno.nombre }} {{ alumno.apellido_paterno }} {{ alumno.apellido_materno }}
+    </p>
+
+    <div class="resultado-card {{ resultado|lower }}">
+        <h3>Tu estilo predominante es:</h3>
+        <h1>{{ resultado }}</h1>
+
+        {% if resultado == "Visual" %}
+            <img src="{% static 'catalog/img/visual.png' %}" alt="Estilo Visual">
+            <p>Aprendes mejor mediante imágenes, diagramas y esquemas.</p>
+
+        {% elif resultado == "Auditivo" %}
+            <img src="{% static 'catalog/img/auditivo.png' %}" alt="Estilo Auditivo">
+            <p>Aprendes mejor escuchando explicaciones y dialogando.</p>
+
+        {% else %}
+            <img src="{% static 'catalog/img/kinestesico.png' %}" alt="Estilo Kinestésico">
+            <p>Aprendes mejor practicando y realizando actividades.</p>
+        {% endif %}
+    </div>
+
+    <div class="puntajes">
+        <p>Visual: <strong>{{ visual }}</strong></p>
+        <p>Auditivo: <strong>{{ auditivo }}</strong></p>
+        <p>Kinestésico: <strong>{{ kinestesico }}</strong></p>
+    </div>
+
+    <a href="#" class="btn-continuar">
+        Continuar
+    </a>
+
+</div>
+
+</body>
+</html>

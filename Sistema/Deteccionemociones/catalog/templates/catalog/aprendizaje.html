@@ -1,206 +1,114 @@
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Estilo de Aprendizaje</title>
 
-<h2>Test de Estilos de Aprendizaje</h2>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'catalog/css/aprendizaje.css' %}">
+</head>
+<body>
 
-<form method="POST" action="{% url 'estilos_aprendizaje' alumno.id_alumno %}">
+<h2>Cuestionario de Estilos de Aprendizaje</h2>
+
+<form method="POST">
     {% csrf_token %}
 
-    <!-- Barra de progreso -->
-    <div id="progress-container">
-        <div id="progress-bar"></div>
+    <!-- Pregunta 1 -->
+    <div class="form-group">
+        <p>1. Cuando estudio, aprendo mejor cuando:</p>
+        <label><input type="radio" name="p1" value="A"> Veo esquemas o imágenes</label>
+        <label><input type="radio" name="p1" value="B"> Escucho explicaciones</label>
+        <label><input type="radio" name="p1" value="C"> Practico o hago ejercicios</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 2 -->
+    <div class="form-group">
+        <p>2. Prefiero que el profesor:</p>
+        <label><input type="radio" name="p2" value="A"> Use presentaciones visuales</label>
+        <label><input type="radio" name="p2" value="B"> Explique verbalmente</label>
+        <label><input type="radio" name="p2" value="C"> Haga actividades prácticas</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 3 -->
+    <div class="form-group">
+        <p>3. Para recordar información, me ayuda más:</p>
+        <label><input type="radio" name="p3" value="A"> Ver apuntes o diagramas</label>
+        <label><input type="radio" name="p3" value="B"> Repetirla en voz alta</label>
+        <label><input type="radio" name="p3" value="C"> Escribirla o practicarla</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 4 -->
+    <div class="form-group">
+        <p>4. Cuando leo, entiendo mejor si:</p>
+        <label><input type="radio" name="p4" value="A"> Hay imágenes o gráficos</label>
+        <label><input type="radio" name="p4" value="B"> Leo en voz alta</label>
+        <label><input type="radio" name="p4" value="C"> Tomo notas o subrayo</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 5 -->
+    <div class="form-group">
+        <p>5. En clase me distraigo menos cuando:</p>
+        <label><input type="radio" name="p5" value="A"> Veo videos o ejemplos visuales</label>
+        <label><input type="radio" name="p5" value="B"> Escucho al profesor</label>
+        <label><input type="radio" name="p5" value="C"> Participo activamente</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 6 -->
+    <div class="form-group">
+        <p>6. Prefiero estudiar:</p>
+        <label><input type="radio" name="p6" value="A"> Con mapas conceptuales</label>
+        <label><input type="radio" name="p6" value="B"> Escuchando audios</label>
+        <label><input type="radio" name="p6" value="C"> Haciendo ejercicios</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 7 -->
+    <div class="form-group">
+        <p>7. Aprendo mejor cuando:</p>
+        <label><input type="radio" name="p7" value="A"> Observo cómo se hace</label>
+        <label><input type="radio" name="p7" value="B"> Me lo explican</label>
+        <label><input type="radio" name="p7" value="C"> Lo hago yo mismo</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 8 -->
+    <div class="form-group">
+        <p>8. Cuando resuelvo problemas, prefiero:</p>
+        <label><input type="radio" name="p8" value="A"> Ver ejemplos resueltos</label>
+        <label><input type="radio" name="p8" value="B"> Escuchar cómo resolverlos</label>
+        <label><input type="radio" name="p8" value="C"> Resolverlos paso a paso</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 9 -->
+    <div class="form-group">
+        <p>9. En exposiciones me ayuda más:</p>
+        <label><input type="radio" name="p9" value="A"> Ver diapositivas</label>
+        <label><input type="radio" name="p9" value="B"> Escuchar al expositor</label>
+        <label><input type="radio" name="p9" value="C"> Participar en dinámicas</label>
+    </div>
+    <hr>
+
+    <!-- Pregunta 10 -->
+    <div class="form-group">
+        <p>10. Cuando aprendo algo nuevo:</p>
+        <label><input type="radio" name="p10" value="A"> Lo visualizo</label>
+        <label><input type="radio" name="p10" value="B"> Lo escucho</label>
+        <label><input type="radio" name="p10" value="C"> Lo practico</label>
     </div>
 
-    <style>
-        body {
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #e9f2fb;
-            margin: 0;
-            padding: 0;
-        }
-
-        form {
-            background-color: #ffffff;
-            width: 70%;
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-            color: #1f4e79;
-            margin-top: 40px;
-        }
-
-        .pregunta {
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #1f4e79;
-        }
-
-        .pregunta.activa {
-            color: #2e75b6;
-        }
-
-        .opcion {
-            margin-left: 20px;
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        button {
-            width: 100%;
-            background-color: #2e75b6;
-            color: #ffffff;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #1f4e79;
-        }
-
-        /* Barra de progreso */
-        #progress-container {
-            width: 100%;
-            background: #dce6f2;
-            border-radius: 6px;
-            height: 14px;
-            margin-bottom: 30px;
-        }
-
-        #progress-bar {
-            height: 100%;
-            width: 0%;
-            background: #2e75b6;
-            border-radius: 6px;
-            transition: width 0.3s ease;
-        }
-    </style>
-
-    {% for i in "12345678910"|make_list %}
-    {% endfor %}
-
-    <!-- Preguntas -->
-    {% for num, pregunta, a, b, c in preguntas %}
-    {% endfor %}
-
-    <!-- 1 -->
-    <div class="pregunta">1. Cuando estudias, prefieres…</div>
-    <label class="opcion"><input type="radio" name="p1" value="A"> Ver esquemas, colores, dibujos</label>
-    <label class="opcion"><input type="radio" name="p1" value="B"> Escuchar explicaciones</label>
-    <label class="opcion"><input type="radio" name="p1" value="C"> Hacer actividades prácticas</label>
-
-    <!-- 2 -->
-    <div class="pregunta">2. Cuando te dan instrucciones, entiendes mejor si…</div>
-    <label class="opcion"><input type="radio" name="p2" value="A"> Las ves por escrito</label>
-    <label class="opcion"><input type="radio" name="p2" value="B"> Te las dicen</label>
-    <label class="opcion"><input type="radio" name="p2" value="C"> Te las muestran</label>
-
-    <!-- 3 -->
-    <div class="pregunta">3. En clase, te concentras mejor cuando…</div>
-    <label class="opcion"><input type="radio" name="p3" value="A"> Ves presentaciones</label>
-    <label class="opcion"><input type="radio" name="p3" value="B"> Escuchas</label>
-    <label class="opcion"><input type="radio" name="p3" value="C"> Practicas</label>
-
-    <!-- 4 -->
-    <div class="pregunta">4. Al recordar algo, lo haces…</div>
-    <label class="opcion"><input type="radio" name="p4" value="A"> Con imágenes</label>
-    <label class="opcion"><input type="radio" name="p4" value="B"> Con sonidos</label>
-    <label class="opcion"><input type="radio" name="p4" value="C"> Con movimientos</label>
-
-    <!-- 5 -->
-    <div class="pregunta">5. Para aprender algo nuevo…</div>
-    <label class="opcion"><input type="radio" name="p5" value="A"> Leer</label>
-    <label class="opcion"><input type="radio" name="p5" value="B"> Escuchar</label>
-    <label class="opcion"><input type="radio" name="p5" value="C"> Hacer</label>
-
-    <!-- 6 -->
-    <div class="pregunta">6. Cuando usas tecnología nueva…</div>
-    <label class="opcion"><input type="radio" name="p6" value="A"> Ves tutoriales</label>
-    <label class="opcion"><input type="radio" name="p6" value="B"> Escuchas</label>
-    <label class="opcion"><input type="radio" name="p6" value="C"> Experimentas</label>
-
-    <!-- 7 -->
-    <div class="pregunta">7. Cuando estudias para un examen…</div>
-    <label class="opcion"><input type="radio" name="p7" value="A"> Subrayas</label>
-    <label class="opcion"><input type="radio" name="p7" value="B"> Lees en voz alta</label>
-    <label class="opcion"><input type="radio" name="p7" value="C"> Te mueves</label>
-
-    <!-- 8 -->
-    <div class="pregunta">8. Cuando te cuentan una historia…</div>
-    <label class="opcion"><input type="radio" name="p8" value="A"> Imaginas</label>
-    <label class="opcion"><input type="radio" name="p8" value="B"> Recuerdas sonidos</label>
-    <label class="opcion"><input type="radio" name="p8" value="C"> Actúas</label>
-
-    <!-- 9 -->
-    <div class="pregunta">9. Cuando trabajas en equipo…</div>
-    <label class="opcion"><input type="radio" name="p9" value="A"> Escribes ideas</label>
-    <label class="opcion"><input type="radio" name="p9" value="B"> Discutes</label>
-    <label class="opcion"><input type="radio" name="p9" value="C"> Organizas</label>
-
-    <!-- 10 -->
-    <div class="pregunta">10. Te resulta más fácil recordar…</div>
-    <label class="opcion"><input type="radio" name="p10" value="A"> Lo que ves</label>
-    <label class="opcion"><input type="radio" name="p10" value="B"> Lo que escuchas</label>
-    <label class="opcion"><input type="radio" name="p10" value="C"> Lo que haces</label>
-
-    <button type="submit">Enviar respuestas</button>
+    <button type="submit">Guardar y continuar</button>
 </form>
 
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const total = 10;
-    const radios = document.querySelectorAll("input[type='radio']");
-    const bar = document.getElementById("progress-bar");
-    const form = document.querySelector("form");
+<!-- JS -->
+<script src="{% static 'catalog/js/aprendizaje.js' %}"></script>
 
-    function actualizarProgreso() {
-        const contestadas = new Set(
-            [...radios].filter(r => r.checked).map(r => r.name)
-        ).size;
-        bar.style.width = (contestadas / total) * 100 + "%";
-    }
-
-    radios.forEach(radio => {
-        // Guardar
-        radio.addEventListener("change", () => {
-            localStorage.setItem(radio.name, radio.value);
-            actualizarProgreso();
-            radio.closest(".pregunta")?.classList.add("activa");
-        });
-
-        // volver a cargar
-        if (localStorage.getItem(radio.name) === radio.value) {
-            radio.checked = true;
-        }
-    });
-
-    actualizarProgreso();
-
-    // Validación
-    form.addEventListener("submit", e => {
-        let contestadas = 0;
-        for (let i = 1; i <= total; i++) {
-            if (document.querySelector(`input[name="p${i}"]:checked`)) {
-                contestadas++;
-            }
-        }
-        if (contestadas < total) {
-            e.preventDefault();
-            alert("⚠️ Responde todas las preguntas antes de enviar.");
-        } else {
-            localStorage.clear();
-        }
-    });
-});
-</script>
-
-{% endblock %}
+</body>
+</html>
