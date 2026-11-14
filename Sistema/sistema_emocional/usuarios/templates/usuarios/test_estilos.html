@@ -1,0 +1,1284 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Test de estilos de aprendizaje</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6fb;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6c63ff, #8e7dff);
+            color: white;
+            padding: 20px 8%;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            padding: 40px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .icon {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #eeecff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 45px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4b44c6;
+            margin-bottom: 15px;
+        }
+
+        .description {
+            text-align: center;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .progress {
+            background: #eee;
+            height: 10px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            background: #6c63ff;
+        }
+
+        .question {
+            margin-bottom: 22px;
+            padding: 22px;
+            background: #f8f8ff;
+            border-radius: 15px;
+            border: 1px solid #eeeeff;
+        }
+
+        .question-number {
+            color: #6c63ff;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 17px;
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .options {
+            display: flex;
+            gap: 15px;
+        }
+
+        .option {
+            flex: 1;
+        }
+
+        .option input {
+            display: none;
+        }
+
+        .option label {
+            display: block;
+            padding: 13px;
+            text-align: center;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .option label:hover {
+            border-color: #6c63ff;
+            background: #eeecff;
+        }
+
+        .option input:checked + label {
+            background: #6c63ff;
+            color: white;
+            border-color: #6c63ff;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            margin-top: 35px;
+            padding: 16px;
+            border: none;
+            border-radius: 30px;
+            background: #6c63ff;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background: #554dcc;
+        }
+
+        .notice {
+            margin-bottom: 30px;
+            padding: 18px;
+            background: #f3f1ff;
+            border-left: 5px solid #6c63ff;
+            border-radius: 10px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .mensaje {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: #e8f7ed;
+            color: #246b3a;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 600px) {
+
+            .card {
+                padding: 22px;
+            }
+
+            .options {
+                flex-direction: column;
+            }
+
+            .container {
+                width: 95%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+        🧠 Sistema de Evaluación
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <div class="card">
+
+
+        <div class="icon">
+            🎓
+        </div>
+
+
+        <h1>
+            Test de estilos de aprendizaje
+        </h1>
+
+
+        <p class="description">
+
+            A continuación encontrarás 80 afirmaciones.
+            Lee cada una cuidadosamente y selecciona la opción
+            que mejor represente tu forma habitual de actuar.
+
+        </p>
+
+
+        <div class="notice">
+
+            <strong>Instrucciones:</strong>
+
+            No existen respuestas correctas o incorrectas.
+            Responde de manera espontánea y sincera.
+            Selecciona <strong>Sí</strong> cuando la afirmación
+            describa tu forma habitual de actuar y
+            <strong>No</strong> cuando no te represente.
+
+        </div>
+
+
+        <div class="progress">
+
+            <div class="progress-bar"></div>
+
+        </div>
+
+
+        {% if mensaje %}
+
+            <div class="mensaje">
+                ✅ {{ mensaje }}
+            </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- PREGUNTA 1 -->
+
+            <div class="question">
+
+                <div class="question-number">
+                    Pregunta 1
+                </div>
+
+                <div class="question-text">
+                    Tengo fama de decir lo que pienso claramente y sin rodeos.
+                </div>
+
+                <div class="options">
+
+                    <div class="option">
+                        <input type="radio" id="p1_si" name="pregunta1" value="si" required>
+                        <label for="p1_si">Sí</label>
+                    </div>
+
+                    <div class="option">
+                        <input type="radio" id="p1_no" name="pregunta1" value="no">
+                        <label for="p1_no">No</label>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PREGUNTA 2 -->
+
+            <div class="question">
+
+                <div class="question-number">Pregunta 2</div>
+
+                <div class="question-text">
+                    Estoy seguro/a de lo que es bueno y lo que es malo, lo que está bien y lo que está mal.
+                </div>
+
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p2_si" name="pregunta2" value="si" required>
+                        <label for="p2_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p2_no" name="pregunta2" value="no">
+                        <label for="p2_no">No</label>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- PREGUNTA 3 -->
+
+            <div class="question">
+
+                <div class="question-number">Pregunta 3</div>
+
+                <div class="question-text">
+                    Muchas veces actúo sin mirar las consecuencias.
+                </div>
+
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p3_si" name="pregunta3" value="si" required>
+                        <label for="p3_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p3_no" name="pregunta3" value="no">
+                        <label for="p3_no">No</label>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- PREGUNTA 4 -->
+
+            <div class="question">
+
+                <div class="question-number">Pregunta 4</div>
+
+                <div class="question-text">
+                    Normalmente trato de resolver los problemas metódicamente y paso a paso.
+                </div>
+
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p4_si" name="pregunta4" value="si" required>
+                        <label for="p4_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p4_no" name="pregunta4" value="no">
+                        <label for="p4_no">No</label>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- PREGUNTA 5 -->
+
+            <div class="question">
+                <div class="question-number">Pregunta 5</div>
+                <div class="question-text">
+                    Creo que los formalismos coartan y limitan la actuación libre de las personas.
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p5_si" name="pregunta5" value="si" required>
+                        <label for="p5_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p5_no" name="pregunta5" value="no">
+                        <label for="p5_no">No</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- PREGUNTA 6 -->
+
+            <div class="question">
+                <div class="question-number">Pregunta 6</div>
+                <div class="question-text">
+                    Me interesa saber cuáles son los sistemas de valores de los demás y con qué criterios actúan.
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p6_si" name="pregunta6" value="si" required>
+                        <label for="p6_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p6_no" name="pregunta6" value="no">
+                        <label for="p6_no">No</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- PREGUNTA 7 -->
+
+            <div class="question">
+                <div class="question-number">Pregunta 7</div>
+                <div class="question-text">
+                    Pienso que el actuar intuitivamente puede ser siempre tan válido como actuar reflexivamente.
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p7_si" name="pregunta7" value="si" required>
+                        <label for="p7_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p7_no" name="pregunta7" value="no">
+                        <label for="p7_no">No</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- PREGUNTA 8 -->
+
+            <div class="question">
+                <div class="question-number">Pregunta 8</div>
+                <div class="question-text">
+                    Creo que lo más importante es que las cosas funcionen.
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p8_si" name="pregunta8" value="si" required>
+                        <label for="p8_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p8_no" name="pregunta8" value="no">
+                        <label for="p8_no">No</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- PREGUNTA 9 -->
+
+            <div class="question">
+                <div class="question-number">Pregunta 9</div>
+                <div class="question-text">
+                    Procuro estar al tanto de lo que ocurre aquí y ahora.
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p9_si" name="pregunta9" value="si" required>
+                        <label for="p9_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p9_no" name="pregunta9" value="no">
+                        <label for="p9_no">No</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- PREGUNTA 10 -->
+
+            <div class="question">
+                <div class="question-number">Pregunta 10</div>
+                <div class="question-text">
+                    Disfruto cuando tengo tiempo para preparar mi trabajo y realizarlo a conciencia.
+                </div>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="p10_si" name="pregunta10" value="si" required>
+                        <label for="p10_si">Sí</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="p10_no" name="pregunta10" value="no">
+                        <label for="p10_no">No</label>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--
+            =====================================================
+            PREGUNTAS 11 A 80
+            =====================================================
+            -->
+
+
+            <div class="question">
+                <div class="question-number">Pregunta 11</div>
+                <div class="question-text">
+                    Estoy a gusto siguiendo un orden en las comidas, en el estudio, haciendo ejercicio regularmente.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p11_si" name="pregunta11" value="si" required><label for="p11_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p11_no" name="pregunta11" value="no"><label for="p11_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 12</div>
+                <div class="question-text">
+                    Cuando escucho una nueva idea enseguida comienzo a pensar cómo ponerla en práctica.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p12_si" name="pregunta12" value="si" required><label for="p12_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p12_no" name="pregunta12" value="no"><label for="p12_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 13</div>
+                <div class="question-text">
+                    Prefiero las ideas originales y novedosas aunque no sean prácticas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p13_si" name="pregunta13" value="si" required><label for="p13_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p13_no" name="pregunta13" value="no"><label for="p13_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 14</div>
+                <div class="question-text">
+                    Admito y me ajusto a las normas sólo si me sirven para lograr mis objetivos.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p14_si" name="pregunta14" value="si" required><label for="p14_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p14_no" name="pregunta14" value="no"><label for="p14_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 15</div>
+                <div class="question-text">
+                    Normalmente encajo bien con personas reflexivas, y me cuesta sintonizar con personas demasiado espontáneas, imprevisibles.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p15_si" name="pregunta15" value="si" required><label for="p15_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p15_no" name="pregunta15" value="no"><label for="p15_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 16</div>
+                <div class="question-text">
+                    Escucho con más frecuencia que hablo.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p16_si" name="pregunta16" value="si" required><label for="p16_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p16_no" name="pregunta16" value="no"><label for="p16_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 17</div>
+                <div class="question-text">
+                    Prefiero las cosas estructuradas a las desordenadas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p17_si" name="pregunta17" value="si" required><label for="p17_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p17_no" name="pregunta17" value="no"><label for="p17_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 18</div>
+                <div class="question-text">
+                    Cuando poseo cualquier información, trato de interpretarla bien antes de manifestar alguna conclusión.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p18_si" name="pregunta18" value="si" required><label for="p18_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p18_no" name="pregunta18" value="no"><label for="p18_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 19</div>
+                <div class="question-text">
+                    Antes de hacer algo estudio con cuidado sus ventajas e inconvenientes.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p19_si" name="pregunta19" value="si" required><label for="p19_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p19_no" name="pregunta19" value="no"><label for="p19_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 20</div>
+                <div class="question-text">
+                    Me entusiasmo con el reto de hacer algo nuevo y diferente.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p20_si" name="pregunta20" value="si" required><label for="p20_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p20_no" name="pregunta20" value="no"><label for="p20_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 21</div>
+                <div class="question-text">
+                    Casi siempre procuro ser coherente con mis criterios y sistemas de valores. Tengo principios y los sigo.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p21_si" name="pregunta21" value="si" required><label for="p21_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p21_no" name="pregunta21" value="no"><label for="p21_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 22</div>
+                <div class="question-text">
+                    Cuando hay una discusión no me gusta ir con rodeos.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p22_si" name="pregunta22" value="si" required><label for="p22_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p22_no" name="pregunta22" value="no"><label for="p22_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 23</div>
+                <div class="question-text">
+                    Me disgusta implicarme afectivamente en el ambiente de la escuela. Prefiero mantener relaciones distantes.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p23_si" name="pregunta23" value="si" required><label for="p23_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p23_no" name="pregunta23" value="no"><label for="p23_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 24</div>
+                <div class="question-text">
+                    Me gustan más las personas realistas y concretas que las teóricas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p24_si" name="pregunta24" value="si" required><label for="p24_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p24_no" name="pregunta24" value="no"><label for="p24_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 25</div>
+                <div class="question-text">
+                    Me cuesta ser creativo/a, romper estructuras.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p25_si" name="pregunta25" value="si" required><label for="p25_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p25_no" name="pregunta25" value="no"><label for="p25_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 26</div>
+                <div class="question-text">
+                    Me siento a gusto con personas espontáneas y divertidas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p26_si" name="pregunta26" value="si" required><label for="p26_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p26_no" name="pregunta26" value="no"><label for="p26_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 27</div>
+                <div class="question-text">
+                    La mayoría de las veces expreso abiertamente cómo me siento.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p27_si" name="pregunta27" value="si" required><label for="p27_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p27_no" name="pregunta27" value="no"><label for="p27_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 28</div>
+                <div class="question-text">
+                    Me gusta analizar y dar vueltas a las cosas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p28_si" name="pregunta28" value="si" required><label for="p28_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p28_no" name="pregunta28" value="no"><label for="p28_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 29</div>
+                <div class="question-text">
+                    Me molesta que la gente no se tome en serio las cosas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p29_si" name="pregunta29" value="si" required><label for="p29_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p29_no" name="pregunta29" value="no"><label for="p29_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 30</div>
+                <div class="question-text">
+                    Me atrae experimentar y practicar las últimas técnicas y novedades.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p30_si" name="pregunta30" value="si" required><label for="p30_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p30_no" name="pregunta30" value="no"><label for="p30_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 31</div>
+                <div class="question-text">
+                    Soy cauteloso/a a la hora de sacar conclusiones.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p31_si" name="pregunta31" value="si" required><label for="p31_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p31_no" name="pregunta31" value="no"><label for="p31_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 32</div>
+                <div class="question-text">
+                    Prefiero contar con el mayor número de fuentes de información. Cuantos más datos reúna para reflexionar, mejor.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p32_si" name="pregunta32" value="si" required><label for="p32_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p32_no" name="pregunta32" value="no"><label for="p32_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 33</div>
+                <div class="question-text">
+                    Tiendo a ser perfeccionista.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p33_si" name="pregunta33" value="si" required><label for="p33_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p33_no" name="pregunta33" value="no"><label for="p33_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 34</div>
+                <div class="question-text">
+                    Prefiero oír las opiniones de los demás antes de exponer la mía.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p34_si" name="pregunta34" value="si" required><label for="p34_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p34_no" name="pregunta34" value="no"><label for="p34_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 35</div>
+                <div class="question-text">
+                    Me gusta afrontar la vida espontáneamente y no tener que planificar todo previamente.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p35_si" name="pregunta35" value="si" required><label for="p35_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p35_no" name="pregunta35" value="no"><label for="p35_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 36</div>
+                <div class="question-text">
+                    En las discusiones me gusta observar cómo actúan los demás participantes.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p36_si" name="pregunta36" value="si" required><label for="p36_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p36_no" name="pregunta36" value="no"><label for="p36_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 37</div>
+                <div class="question-text">
+                    Me siento incómodo/a con las personas calladas y demasiado analíticas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p37_si" name="pregunta37" value="si" required><label for="p37_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p37_no" name="pregunta37" value="no"><label for="p37_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 38</div>
+                <div class="question-text">
+                    Juzgo con frecuencia las ideas de los demás por su valor práctico.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p38_si" name="pregunta38" value="si" required><label for="p38_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p38_no" name="pregunta38" value="no"><label for="p38_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 39</div>
+                <div class="question-text">
+                    Me agobio si me obligan a acelerar mucho el trabajo para cumplir un plazo.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p39_si" name="pregunta39" value="si" required><label for="p39_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p39_no" name="pregunta39" value="no"><label for="p39_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 40</div>
+                <div class="question-text">
+                    En las reuniones apoyo las ideas prácticas y realistas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p40_si" name="pregunta40" value="si" required><label for="p40_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p40_no" name="pregunta40" value="no"><label for="p40_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 41</div>
+                <div class="question-text">
+                    Es mejor gozar del momento presente que deleitarse pensando en el pasado o en el futuro.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p41_si" name="pregunta41" value="si" required><label for="p41_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p41_no" name="pregunta41" value="no"><label for="p41_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 42</div>
+                <div class="question-text">
+                    Me molestan las personas que siempre desean apresurar las cosas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p42_si" name="pregunta42" value="si" required><label for="p42_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p42_no" name="pregunta42" value="no"><label for="p42_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 43</div>
+                <div class="question-text">
+                    Aporto ideas nuevas y espontáneas en los grupos de discusión.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p43_si" name="pregunta43" value="si" required><label for="p43_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p43_no" name="pregunta43" value="no"><label for="p43_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 44</div>
+                <div class="question-text">
+                    Pienso que son más consistentes las decisiones fundamentadas en un minucioso análisis que las basadas en la intuición.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p44_si" name="pregunta44" value="si" required><label for="p44_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p44_no" name="pregunta44" value="no"><label for="p44_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 45</div>
+                <div class="question-text">
+                    Detecto frecuentemente la inconsistencia y puntos débiles en las argumentaciones de los demás.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p45_si" name="pregunta45" value="si" required><label for="p45_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p45_no" name="pregunta45" value="no"><label for="p45_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 46</div>
+                <div class="question-text">
+                    Creo que es preciso saltarse las normas muchas más veces que cumplirlas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p46_si" name="pregunta46" value="si" required><label for="p46_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p46_no" name="pregunta46" value="no"><label for="p46_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 47</div>
+                <div class="question-text">
+                    A menudo caigo en la cuenta de otras formas mejores y más prácticas de hacer las cosas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p47_si" name="pregunta47" value="si" required><label for="p47_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p47_no" name="pregunta47" value="no"><label for="p47_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 48</div>
+                <div class="question-text">
+                    En conjunto hablo más que escucho.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p48_si" name="pregunta48" value="si" required><label for="p48_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p48_no" name="pregunta48" value="no"><label for="p48_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 49</div>
+                <div class="question-text">
+                    Prefiero distanciarme de los hechos y observarlos desde otras perspectivas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p49_si" name="pregunta49" value="si" required><label for="p49_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p49_no" name="pregunta49" value="no"><label for="p49_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 50</div>
+                <div class="question-text">
+                    Estoy convencido/a que debe imponerse la lógica y el razonamiento.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p50_si" name="pregunta50" value="si" required><label for="p50_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p50_no" name="pregunta50" value="no"><label for="p50_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 51</div>
+                <div class="question-text">
+                    Me gusta buscar nuevas experiencias.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p51_si" name="pregunta51" value="si" required><label for="p51_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p51_no" name="pregunta51" value="no"><label for="p51_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 52</div>
+                <div class="question-text">
+                    Me gusta experimentar y aplicar las cosas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p52_si" name="pregunta52" value="si" required><label for="p52_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p52_no" name="pregunta52" value="no"><label for="p52_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 53</div>
+                <div class="question-text">
+                    Pienso que debemos llegar pronto al grano, al meollo de los temas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p53_si" name="pregunta53" value="si" required><label for="p53_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p53_no" name="pregunta53" value="no"><label for="p53_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 54</div>
+                <div class="question-text">
+                    Siempre trato de conseguir conclusiones e ideas claras.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p54_si" name="pregunta54" value="si" required><label for="p54_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p54_no" name="pregunta54" value="no"><label for="p54_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 55</div>
+                <div class="question-text">
+                    Prefiero discutir cuestiones concretas y no perder el tiempo con pláticas superficiales.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p55_si" name="pregunta55" value="si" required><label for="p55_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p55_no" name="pregunta55" value="no"><label for="p55_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 56</div>
+                <div class="question-text">
+                    Me impaciento cuando me dan explicaciones irrelevantes e incoherentes.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p56_si" name="pregunta56" value="si" required><label for="p56_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p56_no" name="pregunta56" value="no"><label for="p56_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 57</div>
+                <div class="question-text">
+                    Compruebo antes si las cosas funcionan realmente.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p57_si" name="pregunta57" value="si" required><label for="p57_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p57_no" name="pregunta57" value="no"><label for="p57_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 58</div>
+                <div class="question-text">
+                    Hago varios borradores antes de la redacción definitiva de un trabajo.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p58_si" name="pregunta58" value="si" required><label for="p58_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p58_no" name="pregunta58" value="no"><label for="p58_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 59</div>
+                <div class="question-text">
+                    Soy consciente de que en las discusiones ayudo a mantener a los demás centrados en el tema, evitando divagaciones.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p59_si" name="pregunta59" value="si" required><label for="p59_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p59_no" name="pregunta59" value="no"><label for="p59_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 60</div>
+                <div class="question-text">
+                    Observo que, con frecuencia, soy uno/a de los/as más objetivos/as y desapasionados/as en las discusiones.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p60_si" name="pregunta60" value="si" required><label for="p60_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p60_no" name="pregunta60" value="no"><label for="p60_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 61</div>
+                <div class="question-text">
+                    Cuando algo va mal, le quito importancia y trato de hacerlo mejor.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p61_si" name="pregunta61" value="si" required><label for="p61_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p61_no" name="pregunta61" value="no"><label for="p61_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 62</div>
+                <div class="question-text">
+                    Rechazo ideas originales y espontáneas si no las veo prácticas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p62_si" name="pregunta62" value="si" required><label for="p62_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p62_no" name="pregunta62" value="no"><label for="p62_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 63</div>
+                <div class="question-text">
+                    Me gusta sopesar diversas alternativas antes de tomar una decisión.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p63_si" name="pregunta63" value="si" required><label for="p63_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p63_no" name="pregunta63" value="no"><label for="p63_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 64</div>
+                <div class="question-text">
+                    Con frecuencia miro hacia delante para prever el futuro.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p64_si" name="pregunta64" value="si" required><label for="p64_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p64_no" name="pregunta64" value="no"><label for="p64_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 65</div>
+                <div class="question-text">
+                    En los debates y discusiones prefiero desempeñar un papel secundario antes que ser el/la líder o el/la que más participa.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p65_si" name="pregunta65" value="si" required><label for="p65_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p65_no" name="pregunta65" value="no"><label for="p65_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 66</div>
+                <div class="question-text">
+                    Me molestan las personas que no actúan con lógica.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p66_si" name="pregunta66" value="si" required><label for="p66_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p66_no" name="pregunta66" value="no"><label for="p66_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 67</div>
+                <div class="question-text">
+                    Me resulta incómodo tener que planificar y prever las cosas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p67_si" name="pregunta67" value="si" required><label for="p67_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p67_no" name="pregunta67" value="no"><label for="p67_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 68</div>
+                <div class="question-text">
+                    Creo que el fin justifica los medios en muchos casos.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p68_si" name="pregunta68" value="si" required><label for="p68_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p68_no" name="pregunta68" value="no"><label for="p68_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 69</div>
+                <div class="question-text">
+                    Suelo reflexionar sobre los asuntos y problemas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p69_si" name="pregunta69" value="si" required><label for="p69_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p69_no" name="pregunta69" value="no"><label for="p69_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 70</div>
+                <div class="question-text">
+                    El trabajar a conciencia me llena de satisfacción y orgullo.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p70_si" name="pregunta70" value="si" required><label for="p70_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p70_no" name="pregunta70" value="no"><label for="p70_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 71</div>
+                <div class="question-text">
+                    Ante los acontecimientos trato de descubrir los principios y teorías en que se basan.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p71_si" name="pregunta71" value="si" required><label for="p71_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p71_no" name="pregunta71" value="no"><label for="p71_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 72</div>
+                <div class="question-text">
+                    Con tal de conseguir el objetivo que pretendo soy capaz de herir sentimientos ajenos.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p72_si" name="pregunta72" value="si" required><label for="p72_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p72_no" name="pregunta72" value="no"><label for="p72_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 73</div>
+                <div class="question-text">
+                    No me importa hacer todo lo necesario para que sea efectivo mi trabajo.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p73_si" name="pregunta73" value="si" required><label for="p73_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p73_no" name="pregunta73" value="no"><label for="p73_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 74</div>
+                <div class="question-text">
+                    Con frecuencia soy una de las personas que más anima las fiestas.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p74_si" name="pregunta74" value="si" required><label for="p74_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p74_no" name="pregunta74" value="no"><label for="p74_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 75</div>
+                <div class="question-text">
+                    Me aburro enseguida con el trabajo metódico y minucioso.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p75_si" name="pregunta75" value="si" required><label for="p75_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p75_no" name="pregunta75" value="no"><label for="p75_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 76</div>
+                <div class="question-text">
+                    La gente con frecuencia cree que soy poco sensible a sus sentimientos.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p76_si" name="pregunta76" value="si" required><label for="p76_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p76_no" name="pregunta76" value="no"><label for="p76_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 77</div>
+                <div class="question-text">
+                    Suelo dejarme llevar por mis intuiciones.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p77_si" name="pregunta77" value="si" required><label for="p77_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p77_no" name="pregunta77" value="no"><label for="p77_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 78</div>
+                <div class="question-text">
+                    Si trabajo en grupo procuro que se siga un método y un orden.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p78_si" name="pregunta78" value="si" required><label for="p78_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p78_no" name="pregunta78" value="no"><label for="p78_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 79</div>
+                <div class="question-text">
+                    Con frecuencia me interesa averiguar lo que piensa la gente.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p79_si" name="pregunta79" value="si" required><label for="p79_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p79_no" name="pregunta79" value="no"><label for="p79_no">No</label></div>
+                </div>
+            </div>
+
+            <div class="question">
+                <div class="question-number">Pregunta 80</div>
+                <div class="question-text">
+                    Esquivo los temas subjetivos, ambiguos y poco claros.
+                </div>
+                <div class="options">
+                    <div class="option"><input type="radio" id="p80_si" name="pregunta80" value="si" required><label for="p80_si">Sí</label></div>
+                    <div class="option"><input type="radio" id="p80_no" name="pregunta80" value="no"><label for="p80_no">No</label></div>
+                </div>
+            </div>
+
+
+            <button type="submit" class="button">
+                Finalizar test →
+            </button>
+
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+
+</html>

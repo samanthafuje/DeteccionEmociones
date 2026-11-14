@@ -1,0 +1,189 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registro | Sistema de Evaluación</title>
+
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+
+</head>
+
+<body>
+
+
+    <!-- BARRA SUPERIOR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🧠 Sistema de Evaluación
+        </div>
+
+    </header>
+
+
+    <!-- CONTENIDO -->
+
+    <main class="container">
+
+        <div class="card">
+
+
+            <!-- ICONO -->
+
+            <div class="icon-container">
+                📝
+            </div>
+
+
+            <!-- TITULO -->
+
+            <h1>
+                Crear una cuenta
+            </h1>
+
+
+            <p class="descripcion">
+                Completa tus datos para comenzar el proceso
+                de evaluación.
+            </p>
+
+
+            <!-- FORMULARIO -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- NOMBRE -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.nombre.id_for_label }}">
+                        Nombre
+                    </label>
+
+                    {{ form.nombre }}
+
+                    {{ form.nombre.errors }}
+
+                </div>
+
+
+                <!-- APELLIDOS -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="{{ form.apellido_paterno.id_for_label }}">
+                            Apellido paterno
+                        </label>
+
+                        {{ form.apellido_paterno }}
+
+                        {{ form.apellido_paterno.errors }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="{{ form.apellido_materno.id_for_label }}">
+                            Apellido materno
+                        </label>
+
+                        {{ form.apellido_materno }}
+
+                        {{ form.apellido_materno.errors }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- EDAD Y LICENCIATURA -->
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="{{ form.edad.id_for_label }}">
+                            Edad
+                        </label>
+
+                        {{ form.edad }}
+
+                        {{ form.edad.errors }}
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="{{ form.licenciatura.id_for_label }}">
+                            Licenciatura
+                        </label>
+
+                        {{ form.licenciatura }}
+
+                        {{ form.licenciatura.errors }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- CORREO -->
+
+                <div class="form-group">
+
+                    <label for="{{ form.correo.id_for_label }}">
+                        Correo electrónico
+                    </label>
+
+                    {{ form.correo }}
+
+                    {{ form.correo.errors }}
+
+                </div>
+
+
+                <!-- BOTÓN -->
+
+                <button type="submit" class="btn">
+                    Crear cuenta
+                </button>
+
+
+            </form>
+
+
+            <!-- LOGIN -->
+
+            <div class="enlace">
+
+                ¿Ya tienes una cuenta?
+
+                <a href="#">
+                    Iniciar sesión
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

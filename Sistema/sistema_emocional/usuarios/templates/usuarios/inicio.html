@@ -1,0 +1,500 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inicio | Sistema de Evaluación</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6fb;
+            color: #333;
+        }
+
+        /* =========================
+           ENCABEZADO
+        ========================= */
+
+        .header {
+            background: linear-gradient(135deg, #6c63ff, #8e7dff);
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .logout {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.18);
+            padding: 10px 18px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .logout:hover {
+            background: rgba(255,255,255,0.30);
+        }
+
+        /* =========================
+           CONTENEDOR PRINCIPAL
+        ========================= */
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        /* =========================
+           BIENVENIDA
+        ========================= */
+
+        .welcome {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .welcome-text {
+            flex: 1;
+        }
+
+        .welcome-text h1 {
+            font-size: 34px;
+            color: #4b44c6;
+            margin-bottom: 15px;
+        }
+
+        .welcome-text p {
+            font-size: 17px;
+            line-height: 1.7;
+            color: #666;
+        }
+
+        .welcome-icon {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #eeecff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 75px;
+        }
+
+        /* =========================
+           REGLAS
+        ========================= */
+
+        .section-title {
+            text-align: center;
+            color: #4b44c6;
+            font-size: 28px;
+            margin: 35px 0 25px;
+        }
+
+        .rules {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .rule {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.06);
+            transition: transform 0.3s;
+        }
+
+        .rule:hover {
+            transform: translateY(-5px);
+        }
+
+        .rule-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+
+        .rule h3 {
+            color: #4b44c6;
+            margin-bottom: 10px;
+        }
+
+        .rule p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* =========================
+           PRIMERA PRUEBA
+        ========================= */
+
+        .test-section {
+            margin-top: 45px;
+        }
+
+        .test-card {
+            background: linear-gradient(135deg, #6c63ff, #8e7dff);
+            color: white;
+            border-radius: 22px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            box-shadow: 0 10px 30px rgba(108,99,255,0.25);
+        }
+
+        .test-info {
+            flex: 1;
+        }
+
+        .test-info h2 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .test-info p {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .start-button {
+            display: inline-block;
+            background: white;
+            color: #5a51d6;
+            padding: 14px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .start-button:hover {
+            transform: scale(1.05);
+            background: #f4f3ff;
+        }
+
+        .test-icon {
+            width: 130px;
+            height: 130px;
+            background: rgba(255,255,255,0.18);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 65px;
+        }
+
+        /* =========================
+           AVISO
+        ========================= */
+
+        .notice {
+            background: #fff;
+            border-left: 5px solid #6c63ff;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .welcome {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+
+            .rules {
+                grid-template-columns: 1fr;
+            }
+
+            .test-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =========================
+         ENCABEZADO
+    ========================= -->
+
+    <header class="header">
+
+        <div class="logo">
+            🧠 Sistema de Evaluación
+        </div>
+
+        <a href="{% url 'logout' %}" class="logout">
+            Cerrar sesión
+        </a>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENIDO
+    ========================= -->
+
+    <main class="container">
+
+
+        <!-- BIENVENIDA -->
+
+        <section class="welcome">
+
+            <div class="welcome-text">
+
+                <h1>
+                    ¡Bienvenido, {{ request.user.first_name }}! 👋
+                </h1>
+
+                <p>
+                    Gracias por formar parte de este sistema.
+                    A continuación realizarás una serie de actividades
+                    que nos permitirán conocer mejor tu forma de aprender
+                    y algunos aspectos relacionados con tu experiencia
+                    académica.
+                </p>
+
+            </div>
+
+
+            <div class="welcome-icon">
+                🧠
+            </div>
+
+        </section>
+
+
+        <!-- REGLAS -->
+
+        <h2 class="section-title">
+            Antes de comenzar
+        </h2>
+
+
+        <section class="rules">
+
+
+            <div class="rule">
+
+                <div class="rule-icon">
+                    📝
+                </div>
+
+                <h3>
+                    Responde con sinceridad
+                </h3>
+
+                <p>
+                    Contesta de acuerdo con lo que realmente piensas,
+                    sientes o haces habitualmente.
+                </p>
+
+            </div>
+
+
+            <div class="rule">
+
+                <div class="rule-icon">
+                    💭
+                </div>
+
+                <h3>
+                    No hay respuestas correctas
+                </h3>
+
+                <p>
+                    Las actividades buscan conocer tus características,
+                    por lo que no existen respuestas buenas o malas.
+                </p>
+
+            </div>
+
+
+            <div class="rule">
+
+                <div class="rule-icon">
+                    ⏱️
+                </div>
+
+                <h3>
+                    Tómate tu tiempo
+                </h3>
+
+                <p>
+                    Lee cuidadosamente cada pregunta antes de seleccionar
+                    tu respuesta.
+                </p>
+
+            </div>
+
+
+            <div class="rule">
+
+                <div class="rule-icon">
+                    🔒
+                </div>
+
+                <h3>
+                    Confidencialidad
+                </h3>
+
+                <p>
+                    La información proporcionada será utilizada únicamente
+                    para los fines establecidos por el sistema.
+                </p>
+
+            </div>
+
+
+            <div class="rule">
+
+                <div class="rule-icon">
+                    ➡️
+                </div>
+
+                <h3>
+                    Sigue el orden
+                </h3>
+
+                <p>
+                    Realiza las actividades en el orden en que aparecen
+                    para completar correctamente el proceso.
+                </p>
+
+            </div>
+
+
+            <div class="rule">
+
+                <div class="rule-icon">
+                    ⚠️
+                </div>
+
+                <h3>
+                    No cierres la página
+                </h3>
+
+                <p>
+                    Evita cerrar o actualizar la página mientras estés
+                    contestando una actividad.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- PRIMERA PRUEBA -->
+
+        <section class="test-section">
+
+            <h2 class="section-title">
+                Comencemos
+            </h2>
+
+
+            <div class="test-card">
+
+
+                <div class="test-info">
+
+                    <h2>
+                        🎨 Test de estilos de aprendizaje
+                    </h2>
+
+                    <p>
+                        Esta será tu primera actividad. A través de una
+                        serie de preguntas podrás identificar cuál es el
+                        estilo de aprendizaje que predomina en ti:
+                        visual, auditivo o kinestésico.
+                    </p>
+
+                    <a href="{% url 'test_estilos' %}" class="start-button">
+                        Comenzar primera prueba →
+                    </a>
+
+                </div>
+
+
+                <div class="test-icon">
+                    🎨
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- AVISO -->
+
+        <div class="notice">
+
+            <strong>💡 Recuerda:</strong>
+
+            No necesitas prepararte previamente para las actividades.
+            Lo más importante es que respondas de manera espontánea
+            y sincera.
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>
