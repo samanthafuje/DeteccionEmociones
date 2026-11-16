@@ -1,0 +1,136 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Evaluación DASS-21</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/estilos.css' %}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠 Sistema de Evaluación
+    </div>
+
+</header>
+
+
+<main class="container dass-container">
+
+    <div class="card">
+
+        <div class="icon-container">
+            📋
+        </div>
+
+        <h1>Evaluación DASS-21</h1>
+
+        <p class="descripcion">
+            A continuación encontrarás 21 afirmaciones.
+            Lee cada una cuidadosamente y selecciona
+            la respuesta que mejor describa cómo te has
+            sentido durante la última semana.
+        </p>
+
+        <div class="dass-instrucciones">
+
+            <h3>Escala de respuestas</h3>
+
+            <div class="dass-escala">
+
+                <p><strong>0:</strong> No me ha ocurrido.</p>
+
+                <p><strong>1:</strong> Me ha ocurrido un poco o durante parte del tiempo.</p>
+
+                <p><strong>2:</strong> Me ha ocurrido bastante o durante una buena parte del tiempo.</p>
+
+                <p><strong>3:</strong> Me ha ocurrido mucho o la mayor parte del tiempo.</p>
+
+            </div>
+
+        </div>
+
+
+        {% if error %}
+
+            <div class="login-error">
+                {{ error }}
+            </div>
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {% for item in preguntas %}
+
+                <div class="pregunta-card">
+
+                    <div class="pregunta-titulo">
+
+                        Pregunta {{ item.numero }} de 21
+
+                    </div>
+
+                    <p class="pregunta-texto">
+                        {{ item.texto }}
+                    </p>
+
+                    <div class="opciones-dass">
+
+                        {% for valor, texto in opciones_dass %}
+
+                            <label class="opcion-dass">
+
+                                <input
+                                    type="radio"
+                                    name="pregunta{{ item.numero }}"
+                                    value="{{ valor }}"
+                                    {% if item.seleccionada == valor %}checked{% endif %}
+                                    required
+                                >
+
+                                <span>
+                                    {{ texto }}
+                                </span>
+
+                            </label>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+
+            <button type="submit" class="btn">
+
+                Finalizar evaluación
+
+            </button>
+
+        </form>
+
+    </div>
+
+</main>
+
+</body>
+</html>

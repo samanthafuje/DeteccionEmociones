@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis reportes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f3fa;
+            margin: 0;
+            padding: 30px;
+        }
+        .contenedor {
+            max-width: 900px;
+            margin: auto;
+        }
+        .reporte {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #0001;
+        }
+        a {
+            color: #6941a5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .vacio {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+<div class="contenedor">
+
+    <h1>Mis reportes</h1>
+    <p>Consulta los textos que has compartido y sus análisis.</p>
+
+    {% for texto in textos %}
+        <div class="reporte">
+            <h3>Texto del {{ texto.fecha_creacion|date:"d/m/Y" }}</h3>
+
+            <p>
+                Estado:
+                {% if texto.procesado %}
+                    Procesado
+                {% else %}
+                    Pendiente
+                {% endif %}
+            </p>
+
+            <a href="{% url 'detalle_reporte' texto.id %}">
+                Consultar reporte
+            </a>
+        </div>
+    {% empty %}
+        <div class="vacio">
+            Todavía no tienes textos registrados.
+        </div>
+    {% endfor %}
+
+    <p><a href="{% url 'inicio' %}">Volver al inicio</a></p>
+
+</div>
+</body>
+</html>

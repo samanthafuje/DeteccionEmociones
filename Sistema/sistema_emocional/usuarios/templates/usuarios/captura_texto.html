@@ -1,0 +1,155 @@
+
+
+{% load static %}
+
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<div class="captura-container">
+
+    <!-- ENCABEZADO DEL ESPACIO SEGURO -->
+    <div class="captura-encabezado">
+
+        <div class="captura-icono">
+            <i class="fa-solid fa-heart"></i>
+        </div>
+
+        <h2>Este espacio es para ti</h2>
+
+        <p>
+            A veces, poner en palabras lo que sentimos puede ayudarnos
+            a comprender mejor nuestras experiencias.
+        </p>
+
+        <span class="captura-frase">
+            <i class="fa-solid fa-shield-heart"></i>
+            Un espacio para expresarte con libertad y sin juicios.
+        </span>
+
+    </div>
+
+
+    <!-- MENSAJES DEL SISTEMA -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="mensaje-captura">
+                <i class="fa-solid fa-circle-check"></i>
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <!-- INSTRUCCIONES -->
+    <div class="captura-instrucciones">
+
+        <h3>
+            <i class="fa-regular fa-lightbulb"></i>
+            Antes de comenzar...
+        </h3>
+
+        <p>
+            No necesitas encontrar las palabras perfectas.
+            Escribe con naturalidad y comparte únicamente aquello
+            que te sientas cómodo expresando.
+        </p>
+
+        <p>
+            No existen respuestas buenas o malas.
+            Lo importante es que puedas expresarte con tus propias palabras.
+        </p>
+
+    </div>
+
+
+    <!-- FORMULARIO DE CAPTURA -->
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="captura-pregunta">
+
+            <span class="captura-etiqueta">
+                <i class="fa-regular fa-comment-dots"></i>
+                Pregunta orientadora
+            </span>
+
+            <h3>
+                ¿Cómo describirías una situación reciente de tu vida
+                académica o personal que haya sido significativa para ti
+                y cómo te sentiste al vivirla?
+            </h3>
+
+            <p class="captura-ayuda">
+                Puedes hablar sobre tus experiencias, pensamientos,
+                emociones o situaciones que hayan llamado tu atención.
+            </p>
+
+            <textarea
+                name="contenido"
+                id="contenido"
+                rows="9"
+                minlength="30"
+                maxlength="5000"
+                placeholder="Tómate tu tiempo... escribe aquí lo que quieras compartir."
+                required
+            ></textarea>
+
+            <div class="captura-contador">
+                <i class="fa-regular fa-pen-to-square"></i>
+                Puedes escribir hasta 5000 caracteres.
+            </div>
+
+        </div>
+
+
+        <!-- AVISO DE PRIVACIDAD -->
+        <div class="captura-privacidad">
+
+            <i class="fa-solid fa-lock"></i>
+
+            <div>
+                <strong>Tu información es importante</strong>
+
+                <p>
+                    Tu respuesta será almacenada para su posterior
+                    procesamiento dentro del sistema y su consulta
+                    estará limitada al personal autorizado, de acuerdo
+                    con las políticas de privacidad de la institución.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- BOTÓN DE ENVÍO -->
+        <button type="submit" class="btn captura-boton">
+
+            <i class="fa-solid fa-paper-plane"></i>
+            Guardar mi respuesta
+
+        </button>
+
+    </form>
+
+
+    <!-- MENSAJE FINAL -->
+    <div class="captura-final">
+
+        <i class="fa-solid fa-seedling"></i>
+
+        <p>
+            Gracias por tomarte este momento para expresarte.
+            Tus experiencias merecen ser escuchadas.
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

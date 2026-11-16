@@ -1,0 +1,125 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Resultados DASS-21</title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/estilos.css' %}">
+
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo">
+        🧠 Sistema de Evaluación
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <div class="card">
+
+        <div class="icon-container">
+            📊
+        </div>
+
+        <h1>Resultados DASS-21</h1>
+
+        <p class="descripcion">
+            Estos son los indicadores obtenidos a partir
+            de tus respuestas.
+        </p>
+
+
+        <div class="resultado-item">
+
+            <h3>Depresión</h3>
+
+            <p class="resultado-puntaje">
+                {{ evaluacion.depresion }} puntos
+            </p>
+
+            <span class="resultado-nivel">
+                {{ evaluacion.nivel_depresion }}
+            </span>
+
+        </div>
+
+
+        <div class="resultado-item">
+
+            <h3>Ansiedad</h3>
+
+            <p class="resultado-puntaje">
+                {{ evaluacion.ansiedad }} puntos
+            </p>
+
+            <span class="resultado-nivel">
+                {{ evaluacion.nivel_ansiedad }}
+            </span>
+
+        </div>
+
+
+        <div class="resultado-item">
+
+            <h3>Estrés</h3>
+
+            <p class="resultado-puntaje">
+                {{ evaluacion.estres }} puntos
+            </p>
+
+            <span class="resultado-nivel">
+                {{ evaluacion.nivel_estres }}
+            </span>
+
+        </div>
+
+
+        <div class="dass-instrucciones">
+
+            <strong>Importante:</strong>
+
+            <p>
+                Estos resultados corresponden a indicadores
+                obtenidos mediante el cuestionario DASS-21.
+                No constituyen un diagnóstico psicológico
+                ni médico. Si necesitas orientación,
+                puedes acudir al área de atención psicológica
+                de la institución.
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+    <div class="continuar-captura">
+
+    <h3>Continuemos con la siguiente actividad</h3>
+
+    <p>
+        Ahora podrás compartir una experiencia personal o académica
+        utilizando tus propias palabras.
+    </p>
+
+    <a href="{% url 'captura_texto' %}" class="btn">
+        Continuar con la captura de texto
+    </a>
+
+    </div>
+</body>
+</html>

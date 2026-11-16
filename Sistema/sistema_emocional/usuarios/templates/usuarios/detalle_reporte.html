@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del reporte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f3fa;
+            padding: 30px;
+        }
+        .contenedor {
+            max-width: 900px;
+            margin: auto;
+        }
+        .tarjeta {
+            background: white;
+            padding: 22px;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #0001;
+        }
+        .indicador {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .aviso {
+            background: #fff4d6;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+        .texto-original {
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        a {
+            color: #6941a5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor">
+
+    <h1>Reporte individual</h1>
+
+    <div class="tarjeta">
+        <h2>Texto original</h2>
+        <p>Fecha: {{ texto.fecha_creacion|date:"d/m/Y H:i" }}</p>
+
+        <div class="texto-original">{{ texto.contenido }}</div>
+    </div>
+
+    {% if analisis %}
+
+        <div class="tarjeta">
+            <h2>Información del procesamiento</h2>
+
+            <p>Total de palabras: {{ analisis.total_palabras }}</p>
+            <p>Versión: {{ analisis.version_procesamiento }}</p>
+            <p>Estado: {{ analisis.estado }}</p>
+            <p>Fecha: {{ analisis.fecha_analisis|date:"d/m/Y H:i" }}</p>
+        </div>
+
+        <div class="tarjeta">
+            <h2>Coincidencias afirmadas</h2>
+
+            {% for categoria, cantidad in analisis.indicadores_detectados.afirmados.items %}
+                <div class="indicador">
+                    <span>{{ categoria|title }}</span>
+                    <strong>{{ cantidad }}</strong>
+                </div>
+            {% empty %}
+                <p>No hay coincidencias registradas.</p>
+            {% endfor %}
+        </div>
+
+        <div class="tarjeta">
+            <h2>Coincidencias con negación detectada</h2>
+
+            {% for categoria, cantidad in analisis.indicadores_detectados.negados.items %}
+                <div class="indicador">
+                    <span>{{ categoria|title }}</span>
+                    <strong>{{ cantidad }}</strong>
+                </div>
+            {% empty %}
+                <p>No hay coincidencias registradas.</p>
+            {% endfor %}
+        </div>
+
+    {% else %}
+
+        <div class="tarjeta">
+            <p>Este texto todavía no cuenta con un análisis registrado.</p>
+        </div>
+
+    {% endif %}
+
+    <div class="aviso">
+        <strong>Importante:</strong>
+        Las coincidencias presentadas son indicadores lingüísticos
+        experimentales. No representan niveles clínicos ni constituyen
+        un diagnóstico psicológico.
+    </div>
+
+    <p><a href="{% url 'mis_reportes' %}">Volver a mis reportes</a></p>
+
+</div>
+</body>
+</html>

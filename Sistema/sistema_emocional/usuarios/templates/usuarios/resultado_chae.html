@@ -1,87 +1,208 @@
+{% load static %}
 
-{% extends 'usuarios/base.html' %}
+<!DOCTYPE html>
+<html lang="es">
 
-{% block content %}
+<head>
 
-<div class="container mt-5">
+    <meta charset="UTF-8">
 
-    <div class="card shadow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <div class="card-body text-center">
+    <title>Resultado CHAEA | Sistema de Evaluación</title>
 
-            <h2 class="mb-4">Resultado del Test CHAEA</h2>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
 
-            <p class="text-muted">
-                Estos son los resultados obtenidos en tu test de estilos de aprendizaje.
+    <style>
+
+        .resultados-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .resultado-item {
+            background: #f9fbfd;
+            border: 1px solid #e1ebf4;
+            border-radius: 14px;
+            padding: 22px 14px;
+            text-align: center;
+            transition: 0.25s;
+        }
+
+        .resultado-item:hover {
+            border-color: #90caf9;
+            box-shadow: 0 6px 18px rgba(25, 118, 210, 0.10);
+        }
+
+        .resultado-item h3 {
+            color: #1976d2;
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
+
+        .resultado-item .puntaje {
+            color: #1565c0;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .estilo-predominante {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .estilo-predominante p {
+            color: #54718a;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .estilo-predominante span {
+            color: #1565c0;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .acciones {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .acciones .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: auto;
+            padding: 0 32px;
+            text-decoration: none;
+        }
+
+        @media (max-width: 700px) {
+
+            .resultados-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 420px) {
+
+            .resultados-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+
+    <!-- BARRA SUPERIOR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            🧠 Sistema de Evaluación
+        </div>
+
+    </header>
+
+
+    <!-- CONTENIDO -->
+
+    <main class="container">
+
+        <div class="card">
+
+
+            <!-- ICONO -->
+
+            <div class="icon-container">
+                🎓
+            </div>
+
+
+            <!-- TITULO -->
+
+            <h1>
+                Resultado del Test CHAEA
+            </h1>
+
+
+            <p class="descripcion">
+                Estos son los resultados obtenidos en tu test
+                de estilos de aprendizaje.
             </p>
 
-            <hr>
 
-            <div class="row mt-4">
+            <!-- CONTEOS -->
 
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Activo</h5>
-                            <h2>{{ resultado.activo }}</h2>
-                        </div>
-                    </div>
+            <div class="resultados-grid">
+
+                <div class="resultado-item">
+                    <h3>Activo</h3>
+                    <div class="puntaje">{{ activo }}</div>
                 </div>
 
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Reflexivo</h5>
-                            <h2>{{ resultado.reflexivo }}</h2>
-                        </div>
-                    </div>
+                <div class="resultado-item">
+                    <h3>Reflexivo</h3>
+                    <div class="puntaje">{{ reflexivo }}</div>
                 </div>
 
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Teórico</h5>
-                            <h2>{{ resultado.teorico }}</h2>
-                        </div>
-                    </div>
+                <div class="resultado-item">
+                    <h3>Teórico</h3>
+                    <div class="puntaje">{{ teorico }}</div>
                 </div>
 
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5>Pragmático</h5>
-                            <h2>{{ resultado.pragmatico }}</h2>
-                        </div>
-                    </div>
+                <div class="resultado-item">
+                    <h3>Pragmático</h3>
+                    <div class="puntaje">{{ pragmatico }}</div>
                 </div>
 
             </div>
 
-            <div class="mt-5">
 
-                <h4>Estilo de aprendizaje predominante</h4>
+            <!-- ESTILO PREDOMINANTE -->
 
-                <div class="alert alert-primary mt-3">
-                    <strong>{{ resultado.estilo_predominante }}</strong>
-                </div>
+            <div class="estilo-predominante">
+
+                <p>Estilo de aprendizaje predominante</p>
+
+                <span>{{ estilo_predominante }}</span>
 
             </div>
 
-            <hr class="my-4">
 
-            <p>
-                Has completado el test CHAEA.
-                Para continuar con la evaluación, realiza el siguiente cuestionario.
+            <p class="descripcion">
+                Has completado el test CHAEA. Para continuar con la
+                evaluación, realiza el siguiente cuestionario.
             </p>
 
-            <a href="{% url 'dass21' %}" class="btn btn-primary btn-lg">
-                Continuar con DASS-21
-            </a>
+
+            <!-- ACCIÓN -->
+
+            <div class="acciones">
+
+                <a href="{% url 'test_dass21' %}" class="btn">
+                    Continuar con DASS-21
+                </a>
+
+            </div>
+
 
         </div>
 
-    </div>
+    </main>
 
-</div>
+</body>
 
-{% endblock %}
+</html>
